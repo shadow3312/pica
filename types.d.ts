@@ -2,13 +2,45 @@
  * Shared types for the LF namespace
  * This file describes the contacts: each module assigns his API to a global bellow
  * so typescript can check the types of the API and provide intellisense
- * Not loaded in the browser, only used for type checking 
+ * Not loaded in the browser, only used for type checking
  */
 
 declare namespace LF {
-    type SettingName = 'markdownTyping' | 'typedVariables' | 'drafts' | 'templates' | 'pasteCleanup' | 'airing';
 
-    interface Settings {
+  type FormatName = "bold" | "italic" | "underline" | "strike" | "mono";
+
+  /** A character decoded by unicode.js: base letter + styles + combining accents. */
+  interface Token {
+    base: string;
+    bold: boolean;
+    italic: boolean;
+    mono: boolean;
+    u: boolean;
+    s: boolean;
+    marks: string;
+  }
+
+  interface Formatter {
+    toggle(str: string, format: FormatName): string;
+    setStyle(str: string, styles: Partial<Record<FormatName, boolean>>): string;
+    clear(str: string): string;
+    toggleList(str: string, type: "bullets" | "numbered"): string;
+    tokenize(str: string): Token[];
+  }
+
+  interface Typography {
+    apply(str: string): string;
+  }
+
+  type SettingName =
+    | "markdownTyping"
+    | "typedVariables"
+    | "drafts"
+    | "templates"
+    | "pasteCleanup"
+    | "airing";
+
+  interface Settings {
     names: SettingName[];
     /** Reads the storage and updates the cache. */
     load(): Promise<void>;
@@ -25,7 +57,10 @@ declare namespace LF {
 
   interface SettingsModule {
     DEFAULTS: Readonly<Record<SettingName, boolean>>;
-    createSettings(adapter: StorageAdapter, options?: { key?: string }): Settings;
+    createSettings(
+      adapter: StorageAdapter,
+      options?: { key?: string },
+    ): Settings;
   }
 
   /** Storage of the extension (storage.js) : chrome.storage.local adapter + settings. */
@@ -36,7 +71,9 @@ declare namespace LF {
     quiet: () => void;
     settings: Settings;
   }
-
 }
 
+// Global variables exposed by each  module
+declare var LinkedInFormatter: LF.Formatter;
+declare var LinkedInTypography: LF.Typography;
 declare var LinkedInStorage: LF.Storage;
