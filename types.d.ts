@@ -6,6 +6,8 @@
  */
 
 declare namespace LF {
+  /** Where to find the editor (determined by editor.js). */
+  type FieldType = 'post' | 'comment' | 'message' | 'other';
 
   type FormatName = "bold" | "italic" | "underline" | "strike" | "mono";
 
@@ -30,6 +32,28 @@ declare namespace LF {
 
   interface Typography {
     apply(str: string): string;
+  }
+
+  
+  /** Active editor and current selection. */
+  interface EditorContext {
+    sel: Selection;
+    editor: HTMLElement;
+    range: Range;
+    field: FieldType;
+  }
+
+  /** Event dispatched by LinkedInEditor.on (one DOM listener per type, in editor.js). */
+  interface BusEvents {
+    /** Once per image (requestAnimationFrame), after selection/focus/typing/scrolling/resizing. */
+    update: (ctx: EditorContext | null) => void;
+    /** Every typing, synchrone (can update editor). */
+    input: (e: InputEvent) => void;
+    focusin: (e: FocusEvent) => void;
+    focusout: (e: FocusEvent) => void;
+    paste: (e: ClipboardEvent) => void;
+    /** Tab can go in background */
+    hidden: () => void;
   }
 
    interface Layout {
@@ -129,6 +153,33 @@ declare namespace LF {
     quiet: () => void;
     settings: Settings;
   }
+
+   /** Hôte d'interface partagé (ui-host.js). */
+  interface UI {
+    mount(id: string, options?: { layer?: 'base' | 'top' }): { shadow: ShadowRoot; setVisible(visible: boolean): void };
+    chip(order: number): { set(visible: boolean, width: number): void; offset(): number };
+  }
+
+  interface Editor {
+    on<K extends keyof BusEvents>(type: K, handler: BusEvents[K]): () => void;
+    requestUpdate(): void;
+    currentContext(): EditorContext | null;
+    editorOfEvent(e: Event): HTMLElement | null;
+    fieldType(editor: HTMLElement): FieldType;
+    overlayParent(editor: HTMLElement): HTMLElement;
+    rangeToText(range: Range): string;
+    replaceSelection(ctx: { editor: HTMLElement; sel: Selection }, newText: string): void;
+    selectCurrentLine(sel: Selection): void;
+    textLength(editor: HTMLElement): number;
+    rangeAtGraphemeOffset(editor: HTMLElement, n: number): Range | null;
+    getText(editor: HTMLElement): string;
+    replaceAll(editor: HTMLElement, text: string): boolean;
+    insertText(editor: HTMLElement, range: Range | null, text: string): boolean;
+    textOffset(editor: HTMLElement, node: Node, offset: number): number;
+    offsetsOf(editor: HTMLElement, range: Range): { start: number; end: number };
+    rangeFromOffsets(editor: HTMLElement, start: number, end: number): Range;
+    findTextOffsets(editor: HTMLElement, needle: string, near: number): { start: number; end: number } | null;
+  }
 }
 
 declare var module: { exports: any } | undefined;
@@ -138,4 +189,5 @@ declare function require(id: string): any;
 declare var LinkedInFormatter: LF.Formatter;
 declare var LinkedInTypography: LF.Typography;
 declare var LinkedInStorage: LF.Storage;
+declare var LinkedInEditor: LF.Editor;
 declare var LinkedInLayout: LF.Layout;
