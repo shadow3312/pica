@@ -32,6 +32,64 @@ declare namespace LF {
     apply(str: string): string;
   }
 
+   interface Layout {
+    placeToolbar(
+      anchor: { left: number; top: number; bottom: number; width: number },
+      size: { width: number; height: number },
+      viewport: { width: number }
+    ): { left: number; top: number };
+    placePopover(chipTop: number, chipHeight: number, panelHeight: number): number;
+    flowRow(items: Array<{ width: number; visible: boolean }>, gap: number): number[];
+  }
+
+  /** Machine à états du panneau « Modèles » (panel-state.js). */
+  type PanelMode = 'closed' | 'list' | 'form' | 'save' | 'create' | 'ask';
+
+  interface PanelState {
+    mode: PanelMode;
+    /** Mode « form » : le modèle dont on remplit les variables. */
+    formTemplate: Draft | null;
+    /** Mode « ask » : la variable tapée à remplir (raw = son texte exact, offset = où, en décalage de texte). */
+    pending: { name: string; raw: string; offset: number } | null;
+    notice: string;
+    /** Sélection de l'éditeur à l'ouverture du panneau (décalages de texte : un Range ne survit pas au changement de focus). */
+    savedOffsets: { start: number; end: number } | null;
+    /** Dernière valeur saisie par variable, pour préremplir. */
+    lastValues: Record<string, string>;
+  }
+
+  type PanelEvent =
+    | { type: 'chip'; selection: { start: number; end: number } | null }
+    | { type: 'use'; template: Draft; variables: string[] }
+    | { type: 'new' }
+    | { type: 'create' }
+    | { type: 'create-submit'; name: string; text: string }
+    | { type: 'save-submit'; name: string; text: string }
+    | { type: 'saved' }
+    | { type: 'form-submit'; values: Record<string, string> }
+    | { type: 'ask-open'; name: string; raw: string; offset: number }
+    | { type: 'ask-submit'; value: string }
+    | { type: 'close' }
+    | { type: 'reset' }
+    | { type: 'chip-disabled' };
+
+  /** Ce que l'interface doit faire ; la machine, elle, ne fait rien. */
+  type PanelEffect =
+    | { type: 'focus-editor' }
+    | { type: 'refresh-list' }
+    | { type: 'refocus-panel' }
+    | { type: 'insert'; template: Draft; values: Record<string, string>; at: { start: number; end: number } | null }
+    | { type: 'save-template'; name: string; text: string }
+    | { type: 'replace-typed'; raw: string; offset: number; value: string };
+
+  interface PanelStateModule {
+    initial(): PanelState;
+    reduce(state: PanelState, event: PanelEvent): { state: PanelState; effects: PanelEffect[] };
+    /** Le focus est dans un champ du panneau : l'éditeur n'est plus l'élément actif. */
+    isLocked(state: PanelState): boolean;
+    oneLine(text: string, max: number): string;
+  }
+
   type SettingName =
     | "markdownTyping"
     | "typedVariables"
@@ -73,7 +131,11 @@ declare namespace LF {
   }
 }
 
+declare var module: { exports: any } | undefined;
+declare function require(id: string): any;
+
 // Global variables exposed by each  module
 declare var LinkedInFormatter: LF.Formatter;
 declare var LinkedInTypography: LF.Typography;
 declare var LinkedInStorage: LF.Storage;
+declare var LinkedInLayout: LF.Layout;
