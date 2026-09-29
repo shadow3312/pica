@@ -1,0 +1,56 @@
+:root {
+    color-scheme: light dark;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 340px;
+    margin: 0;
+    padding: 14px 16px 12px;
+    font: 13px/1.4 -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+h1 {
+    margin: 0 0 4px;
+    font-size: 16px;
+}
+
+.hint, .foot {
+    margin: 0 0 4px;
+    color: GrayText;
+    font-size: 12px;
+}
+
+.foot {
+    margin: 12px 0 0;
+    font-size: 11px;
+}
+
+label.row {
+  display: flex; 
+  gap: 10px; 
+  align-items: flex-start;
+  padding: 8px 6px; 
+  border-radius: 6px; 
+  cursor: pointer;
+}
+label.row:hover { 
+    background: color-mix(in srgb, CanvasText 7%, transparent); 
+}
+label.row input { 
+    margin: 2px 0 0; 
+    width: 16px; 
+    height: 16px; 
+    flex: none; 
+    accent-color: #0a66c2; }
+.title { 
+    font-weight: 600; 
+}
+.help { 
+    color: GrayText; 
+    font-size: 12px; 
+    margin-top: 1px; 
+}
