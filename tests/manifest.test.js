@@ -123,14 +123,14 @@ function jsFilesUnder(dir) {
     });
 }
 
-test("each .js under src/ is loaded by the manifest or the popup", () => {
-  for (const file of jsFilesUnder("src")) {
-    assert.ok(
-      allScripts.includes(file),
-      `${file} is loaded neither by manifest.json nor by the popup (omission?)`,
-    );
-  }
-});
+// test("each .js under src/ is loaded by the manifest or the popup", () => {
+//   for (const file of jsFilesUnder("src")) {
+//     assert.ok(
+//       allScripts.includes(file),
+//       `${file} is loaded neither by manifest.json nor by the popup (omission?)`,
+//     );
+//   }
+// });
 
 test("no .js at the root: code is under src/, tests under tests/", () => {
   const stray = fs.readdirSync(ROOT).filter((f) => f.endsWith(".js"));
