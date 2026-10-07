@@ -261,8 +261,6 @@
 
   /** @type {LF.Formatter} */
   const api = { toggle, clear, toggleList, tokenize, setStyle };
-  /** @type {typeof globalThis & { LinkedInFormatter?: LF.Formatter }} */ (
-    root
-  ).LinkedInFormatter = api;
+  root.LinkedInFormatter = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);
