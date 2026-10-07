@@ -5,15 +5,15 @@
  * DOM-free (like unicode.js): never touches the editor, only the text.
  * Exposed on globalThis.LinkedInFeatures.
  */
-/** @param {typeof globalThis & { LinkedInFormatter?: LF.LinkedInFormatter }} root */
+/** @param {typeof globalThis} root */
 
 (function (root) {
   'use strict';
 
-  if (typeof module !== 'undefined' && module.exports && !LinkedInFormatter) {
+  if (typeof module !== 'undefined' && module.exports && !root.LinkedInFormatter) {
     require('./unicode.js');
   }
-  const F = LinkedInFormatter;
+  const F = root.LinkedInFormatter;
 
   /** @type {LF.Feature[]} */
   const registry = [];
@@ -99,6 +99,6 @@
 
   /** @type {LF.Features} */
   const api = { register, get, list, run, matchesShortcut };
-  LinkedInFeatures = api;
+  root.LinkedInFeatures = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
