@@ -54,7 +54,7 @@
 
   /** @type {LF.Layout} */
   const api = { placeToolbar, placePopover, flowRow };
-  /** @type {{ LinkedInLayout?: LF.Layout }} */ (root).LinkedInLayout = api;
+  root.LinkedInLayout = api;
 
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(typeof globalThis !== "undefined" ? globalThis : this);

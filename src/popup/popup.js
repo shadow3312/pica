@@ -8,9 +8,29 @@
 
   /** type {Record<LF.SettingName, {title: string, help: string}>} */
   const LABELS = {
+    markdownTyping: {
+      title: 'Saisie Markdown en tapant',
+      help: 'Tape **gras**, *italique*, `mono` ou ~~barré~~ : la mise en forme s’applique dès le marqueur fermant. Ctrl+Z revient au Markdown tapé.',
+    },
+    typedVariables: {
+      title: 'Variables {{…}} en tapant',
+      help: '{{date}} est remplacée aussitôt ; {{nom}} ouvre un champ pour saisir sa valeur.',
+    },
     drafts: {
-      title: "Brouillons automatiques",
-      help: "Sauvegarde locale de ton post pendant que tu écris, et pastille « Brouillons ». Les brouillons déjà enregistrés sont conservés si tu désactives.",
+      title: 'Brouillons automatiques',
+      help: 'Sauvegarde locale de ton post pendant que tu écris, et pastille « Brouillons ». Les brouillons déjà enregistrés sont conservés si tu désactives.',
+    },
+    airing: {
+      title: 'Suggestion d’aération',
+      help: 'Pastille « Aérer » sous l’éditeur de post quand le texte est un pavé dense : blocs de 1 à 2 phrases séparés par une ligne vide. Ctrl+Maj+K aère à la demande, réglage coché ou non.',
+    },
+    pasteCleanup: {
+      title: 'Nettoyage du collage',
+      help: 'Répare le texte collé depuis Word, un PDF ou un site : espaces, puces, mots coupés, liens de suivi. Ctrl+Z annule le collage. Ctrl+Maj+L nettoie le texte sélectionné, réglage coché ou non.',
+    },
+    templates: {
+      title: 'Modèles',
+      help: 'Pastille « Modèles » sous l’éditeur de post. Les modèles déjà enregistrés sont conservés si tu désactives.',
     },
   };
 
