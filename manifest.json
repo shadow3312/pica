@@ -22,7 +22,8 @@
         "src/platform/ui-host.js",
         "src/core/features.js",
         "src/widgets/content.js",
-        "src/widgets/overlay.js"
+        "src/widgets/overlay.js",
+        "src/widgets/drafts-ui.js"
       ],
       "run_at": "document_idle",
       "all_frames": true
