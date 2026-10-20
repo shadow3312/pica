@@ -76,8 +76,19 @@
     return null;
   }
 
+  /**
+   * '- ' at the start of a line: start of a bulleted list. Returns the text that replaces `before`
+   * in its entirety (the same bullet as toggleList in unicode.js), or null. A non-breaking space
+   * also counts: some editors produce one when a space is typed at the end of text.
+   * @param {string} before  text of the current line before the cursor
+   * @returns {string | null}
+   */
+  function detectBullet(before) {
+    return /^-[  ]$/.test(before) ? '• ' : null;
+  }
+
   /** @type {LF.TypedMarkdown} */
-  const api = { detect, isMarker };
+  const api = { detect, isMarker, detectBullet };
   root.LinkedInTypedMarkdown = api;
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this);

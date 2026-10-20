@@ -168,3 +168,15 @@ test('detect does not modify anything and always returns consistent offsets', ()
     assert.ok(before.slice(hit.start, hit.end).includes(hit.inner), before);
   }
 });
+
+
+test('« - » followed by space becomes a bullet', () => {
+  assert.equal(TM.detectBullet('- '), '• ');
+  assert.equal(TM.detectBullet('- '), '• ');
+});
+
+test('no bullet elsewhere than at the beginning of a line, nor without a space', () => {
+  for (const before of ['-', ' - ', 'a - ', '-- ', '-a ', '— ', '* ', '• ']) {
+    assert.equal(TM.detectBullet(before), null, JSON.stringify(before));
+  }
+});
