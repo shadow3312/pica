@@ -21,9 +21,32 @@
   const TM = globalThis.LinkedInTypedMarkdown;
   const ST = globalThis.LinkedInStorage;
 
+  /**
+  * Typing “-” followed by a space at the start of a line creates a “•” bullet.
+  * Start of line: the caret's text node is the first in its block (or follows a line break).
+   * @param {InputEvent} e
+   */
+  function bulletOnSpace(e) {
+    if (e.data !== ' ' && e.data !== ' ') return;
+    const ctx = E.currentContext();
+    if (!ctx || !ctx.range.collapsed) return;
+    const node = ctx.range.startContainer;
+    if (node.nodeType !== 3) return;
+    const prev = node.previousSibling;
+    if (prev && prev.nodeName !== 'BR') return;
+    const caret = ctx.range.startOffset;
+    const bullet = TM.detectBullet((node.nodeValue || '').slice(0, caret));
+    if (!bullet) return;
+    const range = document.createRange();
+    range.setStart(node, 0);
+    range.setEnd(node, caret);
+    E.insertText(ctx.editor, range, bullet);
+  }
+
   E.on('input', e => {
     if (!ST.settings.get('markdownTyping')) return;
-    if (e.isComposing || e.inputType !== 'insertText' || !TM.isMarker(e.data)) return;
+    if (e.isComposing || e.inputType !== 'insertText') return;
+    if (!TM.isMarker(e.data)) return bulletOnSpace(e);
 
     const ctx = E.currentContext();
     if (!ctx || !ctx.range.collapsed) return;

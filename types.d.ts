@@ -55,6 +55,7 @@ declare namespace LF {
     detect(before: string): { start: number; end: number; inner: string; style: Partial<Record<FormatName, boolean>> } | null;
     /** Can the typed character close a syntax (*, _, `, ~)? */
     isMarker(ch: string | null | undefined): boolean;
+    detectBullet(before: string): string | null;
   }
 
   interface Templates {

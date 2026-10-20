@@ -30,7 +30,7 @@ test("run() applies the feature's transformation", () => {
 })
 
 test('run() throws an error for an unknown feature', () => {
-    assert.throws(() => FT.run('unknown', 'a'), /Feature inconnue/);
+    assert.throws(() => FT.run('unknown', 'a'), /Unknown feature/);
 });
 
 test('register throws an error for a duplicate feature', () => {
