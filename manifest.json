@@ -14,16 +14,26 @@
       "js": [
         "src/core/unicode.js",
         "src/core/layout.js",
+        "src/core/drafts.js",
         "src/core/settings.js",
         "src/platform/storage.js",
+        "src/core/templates.js",
+        "src/core/panel-state.js",
         "src/core/typography.js",
         "src/core/markdown.js",
+        "src/core/paste-cleanup.js",
+        "src/core/airing.js",
+        "src/core/typed-markdown.js",
         "src/platform/editor.js",
         "src/platform/ui-host.js",
         "src/core/features.js",
         "src/widgets/content.js",
         "src/widgets/overlay.js",
-        "src/widgets/drafts-ui.js"
+        "src/widgets/drafts-ui.js",
+        "src/widgets/templates-ui.js",
+        "src/widgets/markdown-typing.js",
+        "src/widgets/paste-cleanup.js",
+        "src/widgets/airing-ui.js"
       ],
       "run_at": "document_idle",
       "all_frames": true
