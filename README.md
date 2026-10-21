@@ -1,4 +1,4 @@
-# LinkedIn Formatter
+# Pica - LinkedIn Formatter
 
 Extension Chrome, Edge et Brave qui ajoute une barre de mise en forme et des raccourcis clavier directement dans les champs de texte de LinkedIn : **gras**, *italique*, souligné, barré, monospace, listes, typographie française, aération du texte, modèles et brouillons.
 
@@ -155,7 +155,7 @@ Ces promesses sont vérifiées par les tests automatiques (`tests/manifest.test.
 
 Les contributions sont bienvenues : rapports de bug, idées, pull requests.
 
-**Signaler un bug** : ouvre une [issue](https://github.com/shadow3312/linkedin-formatter/issues) en précisant le navigateur, le type de champ (post, commentaire, message, « À propos ») et les étapes pour reproduire.
+**Signaler un bug** : ouvre une [issue](https://github.com/shadow3312/pica/issues) en précisant le navigateur, le type de champ (post, commentaire, message, « À propos ») et les étapes pour reproduire.
 
 ### Mise en place
 
