@@ -162,7 +162,7 @@ Les contributions sont bienvenues : rapports de bug, idées, pull requests.
 Aucune étape de build et aucune dépendance : le code se charge tel quel dans le navigateur. Il te faut seulement [Node.js](https://nodejs.org/) (18 ou plus) pour les tests.
 
 ```bash
-git clone https://github.com/shadow3312/linkedin-formatter.git
+git clone https://github.com/shadow3312/pica.git
 cd linkedin-formatter
 node --test                                   # tests (runner intégré à Node)
 npx -p typescript tsc -p jsconfig.json        # vérification des types, doit afficher zéro erreur
