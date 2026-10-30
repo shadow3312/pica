@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Pica",
-  "description": "Gras, italique, souligné, barré, code, citation, liste à puces, liste numérotée, lien, image, spoiler, tableau et plus encore, directement dans l'éditeur Linkedin.",
+  "description": "Gras, italique, souligné, barré, code, liste à puces, liste numérotée, lien, et plus encore, directement dans l'éditeur Linkedin.",
   "version": "1.0.0",
   "icons": {
     "16": "icons/icon16.png",
